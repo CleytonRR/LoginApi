@@ -5,5 +5,8 @@
   "main": "index.js",
   "repository": "git@github.com:CleytonRR/LoginApi.git",
   "author": "cleytonRR <cleytonrodrigues69@live.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "standard": "^14.3.1"
+  }
 }

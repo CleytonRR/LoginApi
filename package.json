@@ -6,6 +6,9 @@
   "repository": "git@github.com:CleytonRR/LoginApi.git",
   "author": "cleytonRR <cleytonrodrigues69@live.com>",
   "license": "MIT",
+  "scripts": {
+    "test": "mocha src/tests/*.test.js "
+  },
   "devDependencies": {
     "mocha": "^7.0.1",
     "standard": "^14.3.1",

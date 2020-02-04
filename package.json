@@ -1,0 +1,9 @@
+{
+  "name": "LoginApi",
+  "version": "1.0.0",
+  "description": "\"Api for login users'",
+  "main": "index.js",
+  "repository": "git@github.com:CleytonRR/LoginApi.git",
+  "author": "cleytonRR <cleytonrodrigues69@live.com>",
+  "license": "MIT"
+}

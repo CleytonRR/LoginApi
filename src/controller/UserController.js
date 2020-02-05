@@ -1,0 +1,24 @@
+const validatorEmail = require('../util/emailValidator')
+const PassHash = require('../util/passwordHash')
+const validatorPassword = require('../util/passwordValidator')
+const CreatNewUser = require('../Crud/create')
+
+module.exports = {
+  async create (req, res) {
+    try {
+      if (!validatorEmail.testEmail(req.body.email)) {
+        return res.status(400).json({ message: 'Invalid email' })
+      }
+
+      if (!validatorPassword.testePass(req.body.password)) {
+        return res.status(400).json({ message: 'Password should have length 8 and a letter and a number a special character and a letter capslock' })
+      }
+
+      var passwordHash = await PassHash.generatorHash(req.body.password)
+      const response = await CreatNewUser.createUser(req.body.email, passwordHash)
+      return res.status(200).json({ response })
+    } catch (error) {
+      return res.status(500).json({ message: 'Internal error' })
+    }
+  }
+}

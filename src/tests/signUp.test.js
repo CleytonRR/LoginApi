@@ -1,21 +1,28 @@
 /* eslint-env mocha */
 const assert = require('assert')
+const request = require('supertest')
 const validatorEmail = require('../util/emailValidator')
 const validatorPassword = require('../util/passwordValidator')
 const PassHash = require('../util/passwordHash')
 const CreatNewUser = require('../Crud/create')
 const showUser = require('../Crud/show')
 const User = require('../model/UserModel')
+const app = require('../index')
 
 var id = ''
 
 const MockCreate = {
   email: 'any_email@gmail.com',
-  password: 'any_pass11'
+  password: 'any_pass11A'
+}
+
+const MockCreateRouter = {
+  email: 'other_email@gmail.com',
+  password: 'other_pass11A'
 }
 
 describe('Suite tests for ensure correct sign up', function () {
-  this.afterAll(function () {
+  this.afterAll(async function () {
     User.destroy({
       where: {
         id
@@ -33,8 +40,8 @@ describe('Suite tests for ensure correct sign up', function () {
     assert.ok(response === false)
   })
 
-  it('Return true if password provided have length 6 and minimal a letter and one number', () => {
-    const response = validatorPassword.testePass('asdq11')
+  it('Return true if password provided have length 8 and minimal a letter and one number and character special and letter capslock', () => {
+    const response = validatorPassword.testePass('asdq11_A@')
     assert.ok(response === true)
   })
 
@@ -69,6 +76,7 @@ describe('Suite tests for ensure correct sign up', function () {
     const hashPass = await PassHash.generatorHash(MockCreate.password)
     const creatUser = await CreatNewUser.createUser(MockCreate.email, hashPass)
     id = creatUser.id
+    console.log('id', +id)
     assert.deepStrictEqual(MockCreate.email, creatUser.email)
   })
 
@@ -80,5 +88,11 @@ describe('Suite tests for ensure correct sign up', function () {
   it('Return false if email provided not already used', async () => {
     const response = await showUser.checkUserExists('any_email_Not_used@gmail.com')
     assert.ok(response === false)
+  })
+
+  it('POST/user -> Ensure creation of new user with unique email', async () => {
+    const response = await request(app).post('/user').send(MockCreateRouter).set('Accept', 'application/json')
+    assert.deepStrictEqual(MockCreateRouter.email, response.body.response.email)
+    assert.deepStrictEqual(200, response.statusCode)
   })
 })

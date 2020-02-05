@@ -1,6 +1,6 @@
 class validatorPassword {
   static testePass (password) {
-    const regexTest = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/
+    const regexTest = /(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/
     if (!regexTest.test(password)) {
       return false
     }

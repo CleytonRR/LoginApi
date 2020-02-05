@@ -3,6 +3,12 @@ const assert = require('assert')
 const validatorEmail = require('../util/emailValidator')
 const validatorPassword = require('../util/passwordValidator')
 const PassHash = require('../util/passwordHash')
+const CreatNewUser = require('../Crud/create')
+
+const MockCreate = {
+  email: 'any_email@gmail.com',
+  password: 'any_pass11'
+}
 
 describe('Suite tests for ensure correct sign up', function () {
   it('return True if provided correct email', () => {
@@ -45,5 +51,11 @@ describe('Suite tests for ensure correct sign up', function () {
     const response = await PassHash.generatorHash('any_pass11')
     const compareResponse = await PassHash.compareHash('any_pass_diferent1', response)
     assert.ok(compareResponse === false)
+  })
+
+  it('Ensure created user with password in hash', async () => {
+    const hashPass = await PassHash.generatorHash(MockCreate.password)
+    const creatUser = await CreatNewUser.createUser(MockCreate.email, hashPass)
+    assert.deepStrictEqual(MockCreate.email, creatUser.email)
   })
 })

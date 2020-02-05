@@ -4,6 +4,7 @@ const validatorEmail = require('../util/emailValidator')
 const validatorPassword = require('../util/passwordValidator')
 const PassHash = require('../util/passwordHash')
 const CreatNewUser = require('../Crud/create')
+const showUser = require('../Crud/show')
 
 const MockCreate = {
   email: 'any_email@gmail.com',
@@ -57,5 +58,15 @@ describe('Suite tests for ensure correct sign up', function () {
     const hashPass = await PassHash.generatorHash(MockCreate.password)
     const creatUser = await CreatNewUser.createUser(MockCreate.email, hashPass)
     assert.deepStrictEqual(MockCreate.email, creatUser.email)
+  })
+
+  it.only('Return true if email provided already used', async () => {
+    const response = await showUser.checkUserExists(MockCreate.email)
+    assert.ok(response === true)
+  })
+
+  it.only('Return false if email provided not already used', async () => {
+    const response = await showUser.checkUserExists('any_email_Not_used@gmail.com')
+    assert.ok(response === false)
   })
 })

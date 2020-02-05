@@ -6,8 +6,7 @@ class showUser {
       const response = await User.findOne({
         where: { email }
       })
-
-      if (response === null) {
+      if (response === null || parseInt(response) === 0) {
         return false
       }
       return true

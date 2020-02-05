@@ -2,6 +2,7 @@ const validatorEmail = require('../util/emailValidator')
 const PassHash = require('../util/passwordHash')
 const validatorPassword = require('../util/passwordValidator')
 const CreatNewUser = require('../Crud/create')
+const showUser = require('../Crud/show')
 
 module.exports = {
   async create (req, res) {
@@ -12,6 +13,10 @@ module.exports = {
 
       if (!validatorPassword.testePass(req.body.password)) {
         return res.status(400).json({ message: 'Password should have length 8 and a letter and a number a special character and a letter capslock' })
+      }
+
+      if (await showUser.checkUserExists(req.body.email)) {
+        return res.status(400).json({ message: 'Email already used' })
       }
 
       var passwordHash = await PassHash.generatorHash(req.body.password)

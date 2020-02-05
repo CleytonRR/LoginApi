@@ -22,6 +22,10 @@ const MockCreateRouter = {
 }
 
 describe('Suite tests for ensure correct sign up', function () {
+  this.beforeAll(async function () {
+    await User.sync({ force: true })
+  })
+
   this.afterAll(async function () {
     User.destroy({
       where: {
@@ -94,5 +98,11 @@ describe('Suite tests for ensure correct sign up', function () {
     const response = await request(app).post('/user').send(MockCreateRouter).set('Accept', 'application/json')
     assert.deepStrictEqual(MockCreateRouter.email, response.body.response.email)
     assert.deepStrictEqual(200, response.statusCode)
+  })
+
+  it('POST/user -> Return a error 400 if email already used', async () => {
+    const response = await request(app).post('/user').send(MockCreateRouter).set('Accept', 'application/json')
+    assert.deepStrictEqual('Email already used', response.body.message)
+    assert.deepStrictEqual(400, response.statusCode)
   })
 })

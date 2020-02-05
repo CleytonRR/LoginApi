@@ -9,8 +9,6 @@ const showUser = require('../Crud/show')
 const User = require('../model/UserModel')
 const app = require('../index')
 
-var id = ''
-
 const MockCreate = {
   email: 'any_email@gmail.com',
   password: 'any_pass11A'
@@ -24,14 +22,6 @@ const MockCreateRouter = {
 describe('Suite tests for ensure correct sign up', function () {
   this.beforeAll(async function () {
     await User.sync({ force: true })
-  })
-
-  this.afterAll(async function () {
-    User.destroy({
-      where: {
-        id
-      }
-    })
   })
 
   it('return True if provided correct email', () => {
@@ -79,8 +69,6 @@ describe('Suite tests for ensure correct sign up', function () {
   it('Ensure created user with password in hash', async () => {
     const hashPass = await PassHash.generatorHash(MockCreate.password)
     const creatUser = await CreatNewUser.createUser(MockCreate.email, hashPass)
-    id = creatUser.id
-    console.log('id', +id)
     assert.deepStrictEqual(MockCreate.email, creatUser.email)
   })
 

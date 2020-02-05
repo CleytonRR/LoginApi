@@ -85,7 +85,7 @@ describe('Suite tests for ensure correct sign up', function () {
   it('POST/user -> Ensure creation of new user with unique email', async () => {
     const response = await request(app).post('/user').send(MockCreateRouter).set('Accept', 'application/json')
     assert.deepStrictEqual(MockCreateRouter.email, response.body.response.email)
-    assert.deepStrictEqual(200, response.statusCode)
+    assert.deepStrictEqual(201, response.statusCode)
   })
 
   it('POST/user -> Return a error 400 if email already used', async () => {

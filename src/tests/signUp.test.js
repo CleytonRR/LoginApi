@@ -35,13 +35,13 @@ describe('Suite tests for ensure correct sign up', function () {
     assert.ok(response === false)
   })
 
-  it.only('Return a hash basead in password', async () => {
+  it('Return a hash basead in password', async () => {
     const response = await PassHash.generatorHash('any_pass11')
     const compareResponse = await PassHash.compareHash('any_pass11', response)
     assert.ok(compareResponse === true)
   })
 
-  it.only('Return false if password provided be diferent', async () => {
+  it('Return false if password provided be diferent', async () => {
     const response = await PassHash.generatorHash('any_pass11')
     const compareResponse = await PassHash.compareHash('any_pass_diferent1', response)
     assert.ok(compareResponse === false)

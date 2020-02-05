@@ -2,6 +2,7 @@
 const assert = require('assert')
 const validatorEmail = require('../util/emailValidator')
 const validatorPassword = require('../util/passwordValidator')
+const PassHash = require('../util/passwordHash')
 
 describe('Suite tests for ensure correct sign up', function () {
   it('return True if provided correct email', () => {
@@ -32,5 +33,17 @@ describe('Suite tests for ensure correct sign up', function () {
   it('Return false if password provided no have a number', () => {
     const response = validatorPassword.testePass('asdqwe')
     assert.ok(response === false)
+  })
+
+  it.only('Return a hash basead in password', async () => {
+    const response = await PassHash.generatorHash('any_pass11')
+    const compareResponse = await PassHash.compareHash('any_pass11', response)
+    assert.ok(compareResponse === true)
+  })
+
+  it.only('Return false if password provided be diferent', async () => {
+    const response = await PassHash.generatorHash('any_pass11')
+    const compareResponse = await PassHash.compareHash('any_pass_diferent1', response)
+    assert.ok(compareResponse === false)
   })
 })

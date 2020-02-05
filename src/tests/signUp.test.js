@@ -74,7 +74,7 @@ describe('Suite tests for ensure correct sign up', function () {
 
   it('Return true if email provided already used', async () => {
     const response = await showUser.checkUserExists(MockCreate.email)
-    assert.ok(response === true)
+    assert.ok(response[0] === true)
   })
 
   it('Return false if email provided not already used', async () => {

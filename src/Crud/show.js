@@ -9,7 +9,12 @@ class showUser {
       if (response === null || parseInt(response) === 0) {
         return false
       }
-      return true
+      return (
+        [
+          true,
+          response
+        ]
+      )
     } catch (error) {
       console.log('Internal Error')
     }

@@ -60,18 +60,29 @@ We have tree routes
 **/user**
 router use is a router which make create a new users
 accepts email and password in json format
+<br />
+
 **usage example:** 
 <img src='/src/img/user.png' height="500" width="500">
+<br />
+
 **password** - should have length minimal 8 a character have a character caps lock, number and character special
 
 **/login**
 in this route should receive an email and password valid and return a token for authenticate
+<br />
+
 **example**
 <img src='/src/img/login.png' height="500" width="500">
+<br />
+
 **/private**
+<br />
 this route is protected to access it, a token that was generated during login must pass in the request header
 
 **example**
+<br />
+
 <img src='/src/img/private.png' height="500" width="500">
 
 

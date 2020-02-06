@@ -30,7 +30,7 @@ yarn install
 ```
 when finished, create the .env file in the root folder, follow the instructions for creating
 
-<img src='/src/img/img_readmi.png' height="200" width="200">
+<img src='/src/img/img_readmi.png' height="500" width="500">
 
 ## Running the tests
 
@@ -42,6 +42,39 @@ yarn test
 ## Running API
 
 for run API use:
+
+```
+yarn start
+```
+
+## How to use
+
+how this is a api for tests, she is very simple
+We have tree routes
+/user
+/login
+/private
+
+**example build with [Insomnia](https://insomnia.rest/download/)**
+
+**/user**
+router use is a router which make create a new users
+accepts email and password in json format
+**usage example:** 
+<img src='/src/img/user.png' height="500" width="500">
+**password** - should have length minimal 8 a character have a character caps lock, number and character special
+
+**/login**
+in this route should receive an email and password valid and return a token for authenticate
+**example**
+<img src='/src/img/login.png' height="500" width="500">
+**/private**
+this route is protected to access it, a token that was generated during login must pass in the request header
+
+**example**
+<img src='/src/img/private.png' height="500" width="500">
+
+
 
 ```
 yarn start

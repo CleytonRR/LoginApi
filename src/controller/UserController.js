@@ -24,7 +24,7 @@ module.exports = {
 
       var passwordHash = await PassHash.generatorHash(req.body.password)
       const response = await CreatNewUser.createUser(req.body.email, passwordHash)
-      return res.status(201).json({ response })
+      return res.status(201).json({ email: response.email })
     } catch (error) {
       return res.status(500).json({ message: 'Internal error' })
     }

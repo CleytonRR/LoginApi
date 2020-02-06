@@ -19,7 +19,7 @@ const MockCreateRouter = {
   password: 'other_pass11A'
 }
 
-describe.only('Suite tests for ensure correct sign up', function () {
+describe('Suite tests for ensure correct sign up', function () {
   this.beforeAll(async function () {
     await User.sync({ force: true })
   })

@@ -100,4 +100,10 @@ describe('Suite tests for ensure correct login', function () {
     const response = await request(app).get('/private').send(mockUser).set({ authorization: 'beer ' + invalidToken, Accept: 'application/json' })
     assert.deepStrictEqual(401, response.status)
   })
+
+  it('Test for ensure if token is not provided in header return status 400', async () => {
+    const response = await request(app).get('/private').send(mockUser).set({ Accept: 'application/json' })
+    assert.deepStrictEqual(400, response.status)
+    assert.deepStrictEqual('Token is not provided', response.body.message)
+  })
 })

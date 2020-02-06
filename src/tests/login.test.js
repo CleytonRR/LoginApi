@@ -36,7 +36,7 @@ const messageError = 'Email or password invalid'
 var invalidToken = ''
 var validtoken = ''
 
-describe.only('Suite tests for ensure correct login', function () {
+describe('Suite tests for ensure correct login', function () {
   this.beforeAll(async function () {
     await User.sync({ force: true })
   })
@@ -88,6 +88,16 @@ describe.only('Suite tests for ensure correct login', function () {
   it('POST/Login -> if user provided invalid return status 401 and message Email or password invalid', async () => {
     const response = await request(app).post('/login').send(invalidUser).set('Accept', 'application/json')
     assert.deepStrictEqual(messageError, response.body.message)
+    assert.deepStrictEqual(401, response.status)
+  })
+
+  it('Test for ensure correct token in header for acess url', async () => {
+    const response = await request(app).get('/private').send(mockUser).set({ authorization: 'beer ' + validtoken, Accept: 'application/json' })
+    assert.deepStrictEqual(200, response.status)
+  })
+
+  it('Test for ensure if incorrect token in header return status 401', async () => {
+    const response = await request(app).get('/private').send(mockUser).set({ authorization: 'beer ' + invalidToken, Accept: 'application/json' })
     assert.deepStrictEqual(401, response.status)
   })
 })

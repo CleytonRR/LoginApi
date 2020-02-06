@@ -7,15 +7,15 @@ module.exports = {
   async authenticar (req, res) {
     try {
       if (!validatorEmail.testEmail(req.body.email)) {
-        return res.status(400).json({ message: 'Invalid email' })
+        return res.status(401).json({ message: 'Email or password invalid' })
       }
 
       if (!validatorPassword.testePass(req.body.password)) {
-        return res.status(400).json({ message: 'Password should have length 8 and a letter and a number a special character and a letter capslock' })
+        return res.status(401).json({ message: 'Email or password invalid' })
       }
 
       if (await showUser.checkUserExists(req.body.email) === false) {
-        return res.status(401).json({ message: 'User not exists' })
+        return res.status(401).json({ message: 'Email or password invalid' })
       }
       const dados = await showUser.checkUserExists(req.body.email)
       const token = GeneratorToken.token(dados[1].id, dados[1].email)

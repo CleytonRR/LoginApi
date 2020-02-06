@@ -6,6 +6,10 @@ const GeneratorToken = require('../util/generatorToken')
 module.exports = {
   async authenticar (req, res) {
     try {
+      if (Object.keys(req.body).length === 0) {
+        return res.status(400).json({ message: 'Need email and password for login' })
+      }
+
       if (!validatorEmail.testEmail(req.body.email)) {
         return res.status(401).json({ message: 'Email or password invalid' })
       }

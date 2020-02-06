@@ -91,6 +91,12 @@ describe('Suite tests for ensure correct login', function () {
     assert.deepStrictEqual(401, response.status)
   })
 
+  it('POST/Login -> if user not provided datas for login return error 400', async () => {
+    const response = await request(app).post('/login').send({}).set('Accept', 'application/json')
+    assert.deepStrictEqual('Need email and password for login', response.body.message)
+    assert.deepStrictEqual(400, response.status)
+  })
+
   it('Test for ensure correct token in header for acess url', async () => {
     const response = await request(app).get('/private').send(mockUser).set({ authorization: 'beer ' + validtoken, Accept: 'application/json' })
     assert.deepStrictEqual(200, response.status)

@@ -19,7 +19,7 @@ const MockCreateRouter = {
   password: 'other_pass11A'
 }
 
-describe('Suite tests for ensure correct sign up', function () {
+describe.only('Suite tests for ensure correct sign up', function () {
   this.beforeAll(async function () {
     await User.sync({ force: true })
   })
@@ -92,5 +92,11 @@ describe('Suite tests for ensure correct sign up', function () {
     const response = await request(app).post('/user').send(MockCreateRouter).set('Accept', 'application/json')
     assert.deepStrictEqual('Email already used', response.body.message)
     assert.deepStrictEqual(400, response.statusCode)
+  })
+
+  it('POST/Login -> if no provided datas return 400', async () => {
+    const response = await request(app).post('/user').send({}).set('Accept', 'application/json')
+    assert.deepStrictEqual(400, response.status)
+    assert.deepStrictEqual('Datas need for new user', response.body.message)
   })
 })

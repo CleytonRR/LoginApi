@@ -7,6 +7,9 @@ const showUser = require('../Crud/show')
 module.exports = {
   async create (req, res) {
     try {
+      if (Object.keys(req.body).length === 0) {
+        return res.status(400).json({ message: 'Datas need for new user' })
+      }
       if (!validatorEmail.testEmail(req.body.email)) {
         return res.status(400).json({ message: 'Invalid email' })
       }

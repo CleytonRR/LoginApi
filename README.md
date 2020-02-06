@@ -63,6 +63,8 @@ accepts email and password in json format
 <br />
 
 **usage example:** 
+<br />
+
 <img src='/src/img/user.png' height="500" width="500">
 <br />
 
@@ -73,6 +75,8 @@ in this route should receive an email and password valid and return a token for 
 <br />
 
 **example**
+
+<br />
 <img src='/src/img/login.png' height="500" width="500">
 <br />
 
@@ -84,12 +88,6 @@ this route is protected to access it, a token that was generated during login mu
 <br />
 
 <img src='/src/img/private.png' height="500" width="500">
-
-
-
-```
-yarn start
-```
 
 ## Built With
 
